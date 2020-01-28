@@ -20,4 +20,5 @@ function draw() {
   for(var i = 0; i < boids.length; i++){ //for loop to run array
   boids[i] =new Boid();
 }
-}
+
+}//+++++++++++++++++++++++++++end sketch

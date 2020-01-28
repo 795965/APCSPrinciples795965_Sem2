@@ -14,19 +14,24 @@ class Boid{
 
 
   run(){
-
+    update();
+    checkEdges();
+    render();
   } //end run function
-update(){
 
-}//end update
+  update(){
+
+  }//end update
 //Add acc to vel and vel to loc
 //limit the speed
-checkEdges(){
 
-}//end checkEdges
+  checkEdges(){
+
+  }//end checkEdges
 //  Either warp or bounce
-render(){
 
-}//end render
+  render(){
+
+  }//end render
 //This method will draw a line between its location and the location of any other boid object within 200px.
 }//++++++++++++++++++++++++++++++++++++End Boid Class +++++++++++++++++++++++++++++++++++
