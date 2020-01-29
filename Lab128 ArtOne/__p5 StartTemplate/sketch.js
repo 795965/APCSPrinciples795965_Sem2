@@ -17,8 +17,13 @@ function setup() {
 
 //  The draw function is called @ 30 fps
 function draw() {
-  for(var i = 0; i < boids.length; i++){ //for loop to run array
-  boids[i] =new Boid();
+  loadBoids();
 }
+
+
+function loadBoids(){
+  for (var i=0; i<boids.length; i++){
+    boids.run();
+  }
 
 }//+++++++++++++++++++++++++++end sketch
