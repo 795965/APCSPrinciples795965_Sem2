@@ -11,19 +11,25 @@ function setup() {
   background(5, 5, 5);
 
 
-  loadBoids(); //calls function loadBoids
+  loadBoids(60); //calls function loadBoids
 
 }
 
 //  The draw function is called @ 30 fps
+//  The draw function is called @ 30 fps
 function draw() {
-  loadBoids();
+runBoids();
 }
 
-
-function loadBoids(){
-  for (var i=0; i<boids.length; i++){
-    boids.run();
+function loadBoids(n){
+  for (var i =0; i< n; i++){
+    boids[i] = new Boid(random(width), random(height), random(-1,1), random(-1,1), 40); //initializes and declares bid objects
+    }
   }
+
+function runBoids(){
+  for (var i =0; i<boids.length; i++){
+    boids[i].run();
+    }
 
 }//+++++++++++++++++++++++++++end sketch

@@ -5,11 +5,11 @@
 //
 
 class Boid{
-  constructor (x, y, dx, dy, ax, ay clr){
+  constructor (x, y, dx, dy, clr){
     this.loc = createVector(x, y);
     this.vel = createVector(dx, dy);
-    this.acc = createVector(ax,ay);
-    this.color = color(random(255), random(255), random(255));
+    this.acc = createVector(0, 1);
+    this.clr = color(random(255), random(255), random(255));
   } //end Boids constructor
 
 
@@ -25,7 +25,7 @@ class Boid{
       this.vel.add(this.acc);
   }//end update
 
-  checkEdges(){
+  checkEdges(){ //keeps boids on screen
     if(this.loc.x<0){
       this.loc.x=width;
     }
@@ -42,8 +42,13 @@ class Boid{
 //  Either warp or bounce
 
   render(){
-    stroke(this.clr);
-    line(boid.x, boid.y, boid.x, boid.y); //figure this shit out
+    for (var i=boids.length-1; i >0; i--){ //for loop to traverse array
+      if(this.loc.dist(boids[i].loc)<200){ //checks the distance between two boids
+      stroke(this.clr); //gives the line a color
+      line(this.loc.x, this.loc.y, boids[i].loc.x,boids[i].loc.y ); //draws line between two boids
+    }
+  }
+
   }//end render
 //This method will draw a line between its location and the location of any other boid object within 200px.
 }//++++++++++++++++++++++++++++++++++++End Boid Class +++++++++++++++++++++++++++++++++++
