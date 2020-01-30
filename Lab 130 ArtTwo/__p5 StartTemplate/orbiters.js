@@ -2,9 +2,8 @@
 //Lab 130 Art Two
 //This is a comment
 //
-//
 
-class Boid{
+class Orbiter{
   constructor (x, y, dx, dy, clr){
     this.loc = createVector(x, y);
     this.vel = createVector(dx, dy);
@@ -42,9 +41,11 @@ class Boid{
 //  Either warp or bounce
 
   render(){
-    fill(this.clr);
-    ellipse(x, y, 50, 50);
+    for (var i=orbiters.length-1; i >0; i--){ //for loop to traverse array
+      fill(this.clr);
+      ellipse(x, y, 30, 30);
+    }
+
 
   }//end render
-//This method will draw a line between its location and the location of any other boid object within 200px.
-}//++++++++++++++++++++++++++++++++++++End Boid Class +++++++++++++++++++++++++++++++++++
+}//+++++++++++++++++++++++End of Orbiter Class ++++++++++++++++++++++++++++++++
