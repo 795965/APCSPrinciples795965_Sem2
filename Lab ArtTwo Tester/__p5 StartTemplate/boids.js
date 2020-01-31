@@ -44,9 +44,11 @@ class Boid{
   render(){
     for (var i=boids.length-1; i >0; i--){ //for loop to traverse array
       if(this.loc.dist(boids[i].loc)<200){ //checks the distance between two boids
-        stroke(255);
         fill(this.clr); //gives the squares a color
         rect(random(0,800), random(0,800), 10, 10); //draws square
+
+        stroke(255);
+        line(this.loc.x, this.loc.y, 30, 30);
       }
     }
 
