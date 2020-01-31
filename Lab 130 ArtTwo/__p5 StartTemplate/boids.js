@@ -42,8 +42,15 @@ class Boid{
 //  Either warp or bounce
 
   render(){
-    fill(this.clr);
-    ellipse(x, y, 50, 50);
+    for (var i=boids.length-1; i >0; i--){ //for loop to traverse array
+      if(this.loc.dist(boids[i].loc)<200){ //checks the distance between two boids
+        fill(this.clr); //gives the squares a color
+        rect(random(0,800), random(0,800), 10, 10); //draws square
+
+        stroke(255);
+        line(this.loc.x, this.loc.y, 30, 30);
+      }
+    }
 
   }//end render
 //This method will draw a line between its location and the location of any other boid object within 200px.
