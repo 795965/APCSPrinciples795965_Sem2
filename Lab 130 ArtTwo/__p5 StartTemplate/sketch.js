@@ -29,7 +29,7 @@ function draw() {
 
   rotate(radians(rot));
 
-  ellipseMode(RADIUS);
+  ellipseMode(CENTER);
 
     for (var i=0; i<500; i++){
       circle = 50 + 85*sin(millis()*freq*i);
@@ -40,8 +40,7 @@ function draw() {
       ellipse(circle*cos(i), circle*sin(i),r,r);
       rot=rot+0.00005;
     } //end for loop
-
-  //  runBoids();
+      runBoids();
   }//end draw
 
 function loadBoids(n){
