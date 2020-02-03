@@ -45,8 +45,8 @@ class Boid{
     for (var i=boids.length-1; i >0; i--){ //for loop to traverse array
       if(this.loc.dist(boids[i].loc)<200){ //checks the distance between two boids
         stroke(255);
-        fill(this.clr); //gives the squares a color
-        rect(random(0,800), random(0,800), 10, 10); //draws square
+        fill(30, 40, 150, 40); //gives the squares a color
+        ellipse(random(0,800), random(0,800), 10, 10); //draws square
       }
     }
 
