@@ -44,11 +44,15 @@ class Boid{
   render(){
     for (var i=boids.length-1; i >0; i--){ //for loop to traverse array
       if(this.loc.dist(boids[i].loc)<200){ //checks the distance between two boids
-        stroke(255);
-        fill(30, 40, 150, 40); //gives the squares a color
-        ellipse(random(0,800), random(0,800), 10, 10); //draws square
-      }
+      stroke(this.clr); //gives the line a color
+      line(this.loc.x, this.loc.y, boids[i].loc.x,boids[i].loc.y ); //draws line between two boids
+
+      fill(5); //makes squares and circles black
+      rect(this.loc.x, this.loc.y, 20, 20); //draws squares
+
+      ellipse(this.loc.x + 105, this.loc.y +100, 10, 10); //draws circles
     }
+  }
 
   }//end render
 //This method will draw a line between its location and the location of any other boid object within 200px.
