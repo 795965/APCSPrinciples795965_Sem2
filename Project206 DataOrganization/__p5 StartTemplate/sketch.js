@@ -4,17 +4,19 @@
 //  The setup function function is called once when your program begins
 
 function setup() {
-  var cnv = createCanvas(800, 800);
+  var cnv = createCanvas(500, 500);
   cnv.position((windowWidth-width)/2, 30);
-  background(5, 5, 5);
+  background(200);
   fill(200, 30, 150);
-fill(random(0,255), random(0,255), random(0,255));
+  fill(random(0,255), random(0,255), random(0,255));
 
 }
 
 //  The draw function is called @ 30 fps
 function draw() {
-  Body();
+  //body();
+  stickFigure();
+
 }
 
 function createPlayerSelectionList() { //code was given in handy snipets
@@ -53,8 +55,19 @@ function aggregateStats(player, stat) {
   }
 }//end aggregateStats
 
-function Body(){ //creates ellipse for the belly that grows the hevaier the player inspect
-  background(5);
-  ellipse(400, 400, 100, 300); //change second two numbers to be a function of weight
-  rect(400, 400, 10, 200);
-}//end function body
+function stickFigure(){ //creates the stick stickFigure
+  background(200); //background
+  line(250, 100, 250, 275); //body
+  fill(255, 240, 240); //head color
+  ellipse(250, 100, 75, 75); //head
+  line(240, 75, 240, 100); //left eye
+  line(260, 75, 260, 100); //right eye
+  fill(255);
+  quad(235, 110, 240, 120, 260, 120, 265, 110); //mouth
+  line(250, 175, 175, 150); //left arm
+  line(250, 175, 325, 150); //right arm
+  line(250, 275, 200, 400); //left leg
+  line(250, 275, 300, 400); //right leg
+
+ellipse(250, 250, 100, 200); //change second two numbers to be a function of weight
+}//end function stickFigure
