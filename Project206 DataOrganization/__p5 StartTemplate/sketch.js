@@ -3,6 +3,9 @@
 //  This is a comment
 //  The setup function function is called once when your program begins
 
+statsArray = [];
+playerweights = [];
+
 function setup() {
   var cnv = createCanvas(500, 500);
   cnv.position((windowWidth-width)/2, 30);
@@ -14,15 +17,20 @@ function setup() {
 
 //  The draw function is called @ 30 fps
 function draw() {
-  //body();
-  stickFigure();
-
+  stickFigure(); //draws stick person
+  createPlayerSelectionList();
 }
 
 function createPlayerSelectionList() { //code was given in handy snipets
+  textAlign(CENTER);
+
   playerSel = createSelect(true);
-  playerSel.position((windowWidth-width)/2 + 270, (windowHeight-height)/2 + 40); // locate at 270,40 in canvas coordinates
-  playerSel.size(150,headerHeight-50);
+  playerSel.position(370, 100); // locate at 370,100 on the screen
+  //playerSel.size(150,headerHeight-50);
+
+  for(var i =0; i<statsArray.length; i++){
+    playerSel.option(players[i]);
+  }
 } //end function createPlayerSelectionList
 
 // abstract the UI control away, put the chosen player(s) in the array chosenPlayers
@@ -52,6 +60,7 @@ function loadPlayerStats(player) {
 function aggregateStats(player, stat) {
   results = [];
   for (var i =0; i<statsArray.length; i++) {
+   playerSel.option(players[i]);
   }
 }//end aggregateStats
 
@@ -69,5 +78,5 @@ function stickFigure(){ //creates the stick stickFigure
   line(250, 275, 200, 400); //left leg
   line(250, 275, 300, 400); //right leg
 
-ellipse(250, 250, 100, 200); //change second two numbers to be a function of weight
+  ellipse(250, 250, players.weight, 150); //change second two numbers to be a function of weight
 }//end function stickFigure
