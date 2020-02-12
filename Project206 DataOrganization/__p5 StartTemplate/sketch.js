@@ -13,6 +13,7 @@ function setup() {
   fill(200, 30, 150);
   fill(random(0,255), random(0,255), random(0,255));
 
+  playerweights = [100, 150, 120, 115, 200, 210, 205, 168, 189, 190, 194, 203];
 }
 
 //  The draw function is called @ 30 fps
@@ -21,15 +22,12 @@ function draw() {
   createPlayerSelectionList();
 }
 
-function createPlayerSelectionList() { //code was given in handy snipets
-  textAlign(CENTER);
-
+function createPlayerSelectionList() { //creates search box of players
   playerSel = createSelect(true);
-  playerSel.position(370, 100); // locate at 370,100 on the screen
-  //playerSel.size(150,headerHeight-50);
-
-  for(var i =0; i<statsArray.length; i++){
-    playerSel.option(players[i]); //this isn't right
+  playerSel.position((windowWidth-width)/2, (windowHeight-height)/2); // locate at 270,40 in canvas coordinates
+  playerSel.size(150, 100);
+  for(var i = 0; i < players.length; i++){
+    playerSel.option(players[i]);
   }
 } //end function createPlayerSelectionList
 
@@ -78,5 +76,13 @@ function stickFigure(){ //creates the stick stickFigure
   line(250, 275, 200, 400); //left leg
   line(250, 275, 300, 400); //right leg
 
-  ellipse(250, 250, players.weight, 150); //change second two numbers to be a function of weight
+  for(var i= 0; i < playerweights.length -1; i++){
+    fill(random(0, 255), random(0, 255), random(0, 255));
+    ellipse(250, 250, playerweights[i], 150); //change second two numbers to be a function of weight
+
+    fill(5);
+    text('weight: ' + playerweights[i], 30, 400);
+  }
+
+
 }//end function stickFigure
