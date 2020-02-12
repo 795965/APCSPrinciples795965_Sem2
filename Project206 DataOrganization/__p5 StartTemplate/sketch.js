@@ -4,7 +4,7 @@
 //  The setup function function is called once when your program begins
 
 statsArray = [];
-playerweights = [];
+playerweights = []; //figure out how to populate array...
 
 function setup() {
   var cnv = createCanvas(500, 500);
@@ -29,7 +29,7 @@ function createPlayerSelectionList() { //code was given in handy snipets
   //playerSel.size(150,headerHeight-50);
 
   for(var i =0; i<statsArray.length; i++){
-    playerSel.option(players[i]);
+    playerSel.option(players[i]); //this isn't right
   }
 } //end function createPlayerSelectionList
 
