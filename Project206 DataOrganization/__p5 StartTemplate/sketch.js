@@ -3,28 +3,39 @@
 //  This is a comment
 //  The setup function function is called once when your program begins
 
+var statsArray=[];
 var playerweights =[]; //declares array
+//var chosenStat = [];
 
 function setup() {
   var cnv = createCanvas(500, 500);
   cnv.position((windowWidth-width)/2, 30);
   background(200);
   fill(200, 30, 150);
-  fill(random(0,255), random(0,255), random(0,255));
 
   loadStats();
 
+  createPlayerSelectionList();
+
   input = createInput();
   input.position(250, 50);
-  playerweights = [statsArray.get(float(player.freethrow))];
+  // playerweights = [statsArray.get(float(player.freethrow))];
 }
 
 //  The draw function is called @ 30 fps
 function draw() {
   stickFigure(); //draws stick person
-  createPlayerSelectionList();
-  loadPlayerStats('A.C. Green');
-}
+  getSelectedPlayer();
+
+  for(var i = 0; chosenPlayer.length; i++){
+    loadPlayerStats(chosenPlayer[i]);
+  }//end for
+
+  aggregateStats(chosenStat[0]);
+
+  getFreeThrows();
+  stringConverter();
+}//end draw
 
 function createPlayerSelectionList() { //creates search box of players
   playerSel = createSelect(true);
@@ -35,15 +46,36 @@ function createPlayerSelectionList() { //creates search box of players
   }
 } //end function createPlayerSelectionList
 
+function createStatSelectionList(){
+  statSel = createSelect(true);
+  statSel.position((windowWidth+width-300)/2, (windowHeight-height)/2);
+  statSel.size(150, 100);
+  for(var i = 3; i < statNames.length; i++){
+    statSel.option(statNames[i]);
+  }
+}//end createStatSelectionList
+
+
 // abstract the UI control away, put the chosen player(s) in the array chosenPlayers
-function getSelectedPlayers() {
-  chosenPlayers = [];
+function getSelectedPlayer() {
+  chosenPlayer = [];
   for (var i = 0; i<playerSel.elt.selectedOptions.length; i++) {
-      chosenPlayers.push(playerSel.elt.selectedOptions[i].value);
+      chosenPlayer.push(playerSel.elt.selectedOptions[i].value);
     }
   }//end getSelectedPlayers
 
-  //Find the rows of stats for a specific player
+  function getSelectedStat(){
+    chosenStat = [];
+    for(var i = 0; i < statSel.elt.selectedOptions.length; i++){
+      for(var j = 0; j < statNames.length ; j++){
+        if(statSel.elt.selectedOptions[i].value === statNames[j]){
+          chosenStat.push(j);
+        }
+      }
+    }
+  }//end getSelectedStat
+
+//Find the rows of stats for a specific player
 // find the stats for the chosen player in the stats table.
 //result is an array of table rows, one for each year the player was in the league
 function loadPlayerStats(player) {
@@ -59,12 +91,28 @@ function loadPlayerStats(player) {
 // To get one stat for the player’s career, traverse the array
 //(stat is the index of the desired statistic)
 // collect stats into arrays for generic approach to graphing
-function aggregateStats(player, stat) {
+function aggregateStats(stat){
   results = [];
-  for (var i =0; i<statsArray.length; i++) {
-   playerSel.option(players[i]);
+  for(var i = 0; i<statsArray.length; i++) {
+    results.push(statsArray[i].get(stat));
   }
 }//end aggregateStats
+
+function getFreeThrows(){
+  getFreeThrows = [];
+  weight = results[0];
+  for(var i = 0; i<statsArray.length; i++) {
+    getFreeThrows.push(statsArray[i].get(44));
+    weight = results[i];
+  }
+}
+
+function stringConverter(){
+  for(var i = 0; i < results.length; i++){
+    results[i] = parseInt(results[i], 10);
+    weight = results[i];
+  }
+}
 
 function stickFigure(){ //creates the stick stickFigure
   background(200); //background
@@ -83,9 +131,9 @@ function stickFigure(){ //creates the stick stickFigure
   for(var i= 0; i < playerweights.length -1; i++){
     fill(random(0, 255), random(0, 255), random(0, 255));
 
-    ellipse(250, 250, playerweights[i], 150); //draws body
+    ellipse(250, 250, results[i], 150); //draws body
     fill(random(255));
-    text('weight: ' + playerweights[i], 30, 400); //writes the weight of the player on the screen
+    text('weight: ' + results[i], 30, 400); //writes the weight of the player on the screen
   }
 
 
