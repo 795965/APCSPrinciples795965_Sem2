@@ -28,12 +28,12 @@ function draw() {
   getSelectedPlayer();
 
   for(var i = 0; chosenPlayer.length; i++){
-    loadPlayerStats(chosenPlayer[i]);
+  loadPlayerStats('Kobe Bryant');
+
   }//end for
+  aggregateStats();
 
-  aggregateStats(chosenStat[0]);
 
-  getFreeThrows();
   stringConverter();
 }//end draw
 
@@ -64,16 +64,16 @@ function getSelectedPlayer() {
     }
   }//end getSelectedPlayers
 
-  function getSelectedStat(){
-    chosenStat = [];
-    for(var i = 0; i < statSel.elt.selectedOptions.length; i++){
-      for(var j = 0; j < statNames.length ; j++){
-        if(statSel.elt.selectedOptions[i].value === statNames[j]){
-          chosenStat.push(j);
-        }
-      }
-    }
-  }//end getSelectedStat
+  // function getSelectedStat(){
+  //   chosenStat = [];
+  //   for(var i = 0; i < statSel.elt.selectedOptions.length; i++){
+  //     for(var j = 0; j < statNames.length ; j++){
+  //       if(statSel.elt.selectedOptions[i].value === statNames[j]){
+  //         chosenStat.push(j);
+  //       }
+  //     }
+  //   }
+  // }//end getSelectedStat
 
 //Find the rows of stats for a specific player
 // find the stats for the chosen player in the stats table.
@@ -91,21 +91,21 @@ function loadPlayerStats(player) {
 // To get one stat for the player’s career, traverse the array
 //(stat is the index of the desired statistic)
 // collect stats into arrays for generic approach to graphing
-function aggregateStats(stat){
+function aggregateStats(){
   results = [];
   for(var i = 0; i<statsArray.length; i++) {
-    results.push(statsArray[i].get(stat));
+    results.push(float(statsArray[i].get(44)));
   }
 }//end aggregateStats
 
-function getFreeThrows(){
-  getFreeThrows = [];
-  weight = results[0];
-  for(var i = 0; i<statsArray.length; i++) {
-    getFreeThrows.push(statsArray[i].get(44));
-    weight = results[i];
-  }
-}
+// function getFreeThrows(){
+//   getFreeThrows = [];
+//   weight = results[0];
+//   for(var i = 0; i<statsArray.length; i++) {
+//     getFreeThrows.push(statsArray[i].get(44));
+//     weight = results[i];
+//   }
+// }
 
 function stringConverter(){
   for(var i = 0; i < results.length; i++){
@@ -131,7 +131,12 @@ function stickFigure(){ //creates the stick stickFigure
   for(var i= 0; i < playerweights.length -1; i++){
     fill(random(0, 255), random(0, 255), random(0, 255));
 
-    ellipse(250, 250, results[i], 150); //draws body
+    for(var x = 0; x < players.length -1; x++){
+      if(player.name === 'A.C. Green'){
+          ellipse(250, 250, 200, 150); //draws body
+      }
+    }
+
     fill(random(255));
     text('weight: ' + results[i], 30, 400); //writes the weight of the player on the screen
   }
