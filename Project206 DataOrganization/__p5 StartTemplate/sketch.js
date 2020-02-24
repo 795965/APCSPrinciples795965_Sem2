@@ -5,7 +5,7 @@
 
 var statsArray=[];
 var playerweights =[]; //declares array
-//var chosenStat = [];
+var chosenPlayer = [];
 
 function setup() {
   var cnv = createCanvas(500, 500);
@@ -27,13 +27,11 @@ function draw() {
   stickFigure(); //draws stick person
   getSelectedPlayer();
 
-  for(var i = 0; chosenPlayer.length; i++){
-  loadPlayerStats('Kobe Bryant');
-
+  for(var i = 0; i < chosenPlayer.length; i++){
+    loadPlayerStats(chosenPlayer[i]);
   }//end for
+
   aggregateStats();
-
-
   stringConverter();
 }//end draw
 
@@ -44,7 +42,13 @@ function createPlayerSelectionList() { //creates search box of players
   for(var i = 0; i < players.length; i++){
     playerSel.option(players[i]);
   }
+
+//  playerSel.changed(selectPlayer());
 } //end function createPlayerSelectionList
+
+function selectPlayer(){
+
+}//end getSelectedPlayer
 
 function createStatSelectionList(){
   statSel = createSelect(true);
@@ -64,16 +68,6 @@ function getSelectedPlayer() {
     }
   }//end getSelectedPlayers
 
-  // function getSelectedStat(){
-  //   chosenStat = [];
-  //   for(var i = 0; i < statSel.elt.selectedOptions.length; i++){
-  //     for(var j = 0; j < statNames.length ; j++){
-  //       if(statSel.elt.selectedOptions[i].value === statNames[j]){
-  //         chosenStat.push(j);
-  //       }
-  //     }
-  //   }
-  // }//end getSelectedStat
 
 //Find the rows of stats for a specific player
 // find the stats for the chosen player in the stats table.
@@ -83,7 +77,7 @@ function loadPlayerStats(player) {
   statsArray = stats.findRows(player, 2);
   if (statsArray.length === 0) {
 // try adding an '*'
-    statsArray = stats.findRows(player+"*", 2);
+    statsArray = stats.findRows(player+ "*", 2);
   }
 } //end loadPlayerStats
 
@@ -94,7 +88,7 @@ function loadPlayerStats(player) {
 function aggregateStats(){
   results = [];
   for(var i = 0; i<statsArray.length; i++) {
-    results.push(float(statsArray[i].get(44)));
+    results.push(float(statsArray[i].get(45)));
   }
 }//end aggregateStats
 
@@ -128,18 +122,18 @@ function stickFigure(){ //creates the stick stickFigure
   line(250, 275, 200, 400); //left leg
   line(250, 275, 300, 400); //right leg
 
-  for(var i= 0; i < playerweights.length -1; i++){
-    fill(random(0, 255), random(0, 255), random(0, 255));
+ //for(var i= 0; i < playerweights.length -1; i++){
+  //  fill(random(0, 255), random(0, 255), random(0, 255));
 
-    for(var x = 0; x < players.length -1; x++){
-      if(player.name === 'A.C. Green'){
-          ellipse(250, 250, 200, 150); //draws body
-      }
-    }
+  //  for(var x = 0; x < players.length -1; x++){
+  //   if(player.name === chosenPlayer[i]){
+         ellipse(250, 250, 208, 150); //draws body
+  //   }
+//    }
 
-    fill(random(255));
-    text('weight: ' + results[i], 30, 400); //writes the weight of the player on the screen
-  }
+
+    text('weight: ' + 208, 30, 400); //writes the weight of the player on the screen
+ //}
 
 
 }//end function stickFigure
