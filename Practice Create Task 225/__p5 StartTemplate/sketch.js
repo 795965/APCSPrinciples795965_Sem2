@@ -43,7 +43,11 @@ function runBalls(){
 
 function loadShips(y){
   for(var i = 0; i < y; i++){
+    if(y % 2 == 0){
     ships[i]=new Ship(random(width), random(height), random (-1,1), random(-1,1), i+2);
+  } else {
+    ships[i]=new Ship(random(width), random(height), random (-0.5,0.5), random(-0.5,0.5), i+4);
+  }
   }
 }//end loadShips
 
