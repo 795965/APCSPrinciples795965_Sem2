@@ -1,5 +1,5 @@
 //Ziggy Sheynin
-//Lab 828 Vectors
+//Practice Create Task 225
 
 class Ball {
   constructor(x, y, dx, dy, id){
