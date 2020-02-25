@@ -3,137 +3,160 @@
 //  This is a comment
 //  The setup function function is called once when your program begins
 
-var statsArray=[];
-var playerweights =[]; //declares array
-var chosenPlayer = [];
+var statsArray = []; //initializes statsArray
 
 function setup() {
-  var cnv = createCanvas(500, 500);
+  var cnv = createCanvas(800, 800);
   cnv.position((windowWidth-width)/2, 30);
-  background(200);
-  fill(200, 30, 150);
+  background(5, 5, 5);
 
   loadStats();
-
   createPlayerSelectionList();
+  createStatSelectionList();
 
-  input = createInput();
-  input.position(250, 50);
-  // playerweights = [statsArray.get(float(player.freethrow))];
-}
 
-//  The draw function is called @ 30 fps
+} //end setup
+
 function draw() {
-  stickFigure(); //draws stick person
-  getSelectedPlayer();
+  fill(5);
+  textSize(30);
+  text('Select Player and Desired Statistic:', + 75, 50); //writes text on initial screen
+  drawStickFigure(); //draws the player
+  getSelectedPlayers(); //calls function to create players list box
+  getSelectedStat(); //calls function to create stats list box
 
   for(var i = 0; i < chosenPlayer.length; i++){
     loadPlayerStats(chosenPlayer[i]);
-  }//end for
+  } //end for for putting players into array
 
-  aggregateStats();
-  stringConverter();
-}//end draw
-
-function createPlayerSelectionList() { //creates search box of players
-  playerSel = createSelect(true);
-  playerSel.position(250, 100); // locate at 270,40 in canvas coordinates
-  playerSel.size(150, 100);
-  for(var i = 0; i < players.length; i++){
-    playerSel.option(players[i]);
-  }
-
-//  playerSel.changed(selectPlayer());
-} //end function createPlayerSelectionList
-
-function selectPlayer(){
-
-}//end getSelectedPlayer
-
-function createStatSelectionList(){
-  statSel = createSelect(true);
-  statSel.position((windowWidth+width-300)/2, (windowHeight-height)/2);
-  statSel.size(150, 100);
-  for(var i = 3; i < statNames.length; i++){
-    statSel.option(statNames[i]);
-  }
-}//end createStatSelectionList
-
-
-// abstract the UI control away, put the chosen player(s) in the array chosenPlayers
-function getSelectedPlayer() {
-  chosenPlayer = [];
-  for (var i = 0; i<playerSel.elt.selectedOptions.length; i++) {
-      chosenPlayer.push(playerSel.elt.selectedOptions[i].value);
-    }
-  }//end getSelectedPlayers
-
-
-//Find the rows of stats for a specific player
-// find the stats for the chosen player in the stats table.
-//result is an array of table rows, one for each year the player was in the league
-function loadPlayerStats(player) {
-// column 2 has the player's name in the stats table
-  statsArray = stats.findRows(player, 2);
-  if (statsArray.length === 0) {
-// try adding an '*'
-    statsArray = stats.findRows(player+ "*", 2);
-  }
-} //end loadPlayerStats
-
-//Each element of statsArray has a year of stats for the chosen player.
-// To get one stat for the player’s career, traverse the array
-//(stat is the index of the desired statistic)
-// collect stats into arrays for generic approach to graphing
-function aggregateStats(){
-  results = [];
-  for(var i = 0; i<statsArray.length; i++) {
-    results.push(float(statsArray[i].get(45)));
-  }
-}//end aggregateStats
-
-// function getFreeThrows(){
-//   getFreeThrows = [];
-//   weight = results[0];
-//   for(var i = 0; i<statsArray.length; i++) {
-//     getFreeThrows.push(statsArray[i].get(44));
-//     weight = results[i];
-//   }
-// }
-
-function stringConverter(){
-  for(var i = 0; i < results.length; i++){
-    results[i] = parseInt(results[i], 10);
-    weight = results[i];
-  }
+  aggregateStats(chosenStat[0]);
+  getYears(); //for graph
+  toString(); //turns all variables into the same type
+  getSmall(); //for graphing values
+  getLarge();
+  drawGraph(); //function to make the graph
 }
 
-function stickFigure(){ //creates the stick stickFigure
-  background(200); //background
+function drawStickFigure(){ //function to create player
+  fill(255);
+  stroke(5);
+  background(230, 100, 120, 100); //background
   line(250, 100, 250, 275); //body
   fill(255, 240, 240); //head color
   ellipse(250, 100, 75, 75); //head
   line(240, 75, 240, 100); //left eye
   line(260, 75, 260, 100); //right eye
   fill(255);
-  quad(235, 110, 240, 120, 260, 120, 265, 110); //mouth
   line(250, 175, 175, 150); //left arm
   line(250, 175, 325, 150); //right arm
   line(250, 275, 200, 400); //left leg
   line(250, 275, 300, 400); //right leg
+  quad(235, 110, 240, 120, 260, 120, 265, 110); //mouth
 
- //for(var i= 0; i < playerweights.length -1; i++){
-  //  fill(random(0, 255), random(0, 255), random(0, 255));
+}//end function drawStickFigure\
 
-  //  for(var x = 0; x < players.length -1; x++){
-  //   if(player.name === chosenPlayer[i]){
-         ellipse(250, 250, 208, 150); //draws body
-  //   }
-//    }
+function createPlayerSelectionList() {
+  playerSel = createSelect(true);
+  playerSel.position(200, 200); // locate at 270,40 in canvas coordinates
+  playerSel.size(150, 100);
+  for(var i = 0; i < players.length; i++){
+    playerSel.option(players[i]);
+  }
+} //from Mr. Schulman
+//end createPlayerSelectionList
 
+function createStatSelectionList(){
+  statSel = createSelect(true);
+  statSel.position(600, 200);
+  statSel.size(150, 100);
+  for(var i = 3; i < statNames.length; i++){
+    statSel.option(statNames[i]);
+  }
+}//from Mr. Schulman
+//end createStatSelectionList
 
-    text('weight: ' + 208, 30, 400); //writes the weight of the player on the screen
- //}
+// abstract the UI control away, put the chosen player(s) in the array chosenPlayers
+function getSelectedPlayers() {
+  chosenPlayer = [];
+  for (var i = 0; i < playerSel.elt.selectedOptions.length; i++) {
+    chosenPlayer.push(playerSel.elt.selectedOptions[i].value);
+  }
+} //end getSelectedPlayer
+//from Mr. Schulman
 
+function getSelectedStat(){
+  chosenStat = [];
+  for(var i = 0; i < statSel.elt.selectedOptions.length; i++){
+    for(var j = 0; j < statNames.length ; j++){
+      if(statSel.elt.selectedOptions[i].value === statNames[j]){
+        chosenStat.push(j);
+      }
+    }
+  } //got help on this as well
+}//end getSelectedStat
 
-}//end function stickFigure
+// find the stats for the chosen player in the stats table. result is an array of table rows, one for each year the player was in the league
+function loadPlayerStats(player) {
+  // column 2 has the player's name in the stats table
+  statsArray = stats.findRows(player, 2);
+  if (statsArray.length === 0) {
+    // try adding an '*'
+    statsArray = stats.findRows(player+ "*", 2);
+  }
+} //end loadPlayerStats
+//from Mr. Schulman
+
+// collect stats into arrays for generic approach to graphing
+function aggregateStats(stat){ //function to put all stats into one array
+  collectStats = []; //collects the values for each statistic in the database
+  for(var i = 0; i<statsArray.length; i++) {
+    collectStats.push(statsArray[i].get(stat));
+  }
+} //end aggregateStats
+////from Mr. Schulman
+
+function getYears(){ //for x-axis of graph
+  years = [];
+  for(var i = 0; i<statsArray.length; i++) {
+    years.push(statsArray[i].get(1));
+  }
+} //end getYears
+
+function getSmall(){ //helps to create graph that fits on screen
+  smallest = collectStats[0];
+  for(var i = 0; i < collectStats.length; i++){
+    if (smallest > collectStats[i]) {
+      smallest = collectStats[i]; //traverses array to find the smallest value to know how far down to start the graph
+    }
+  }
+} //end getSmall
+
+function getLarge(){//helps to create graph that fits on screen
+  largest = collectStats[0];
+  for(var i = 0; i < collectStats.length; i++){
+    if (largest < collectStats[i]) {
+      largest = collectStats[i];//traverses array to find the largest value to know how far up to end the graph
+    }
+  }
+}//end getLarge
+
+function toString(){ //turns all data into same type
+  for(var i = 0; i < collectStats.length; i++){
+    collectStats[i] = parseInt(collectStats[i], 10);
+  }
+}//end toString
+
+function drawGraph(){
+  var x1, y1, x2, y2;
+  for(var i = 0; i < collectStats.length; i++){
+    x1 = i*(width-100)/collectStats.length + 50;
+    y1 = map(collectStats[i], smallest, largest, 250, 750);
+    x2 = (i+1)*(width-100)/collectStats.length + 50;
+    y2 = map(collectStats[i+1], smallest, largest, 250, 750);
+    stroke(255, 255, 255);
+    line(x1, y1, x2, y2);
+    textSize(20);
+    textAlign(CENTER, BOTTOM);
+    text(years[i], x1, 800);
+  }
+}//end drawGraph
