@@ -5,6 +5,7 @@
 
 var ships = [];//declares ships array
 var balls = []; //declares array
+var squares = []; //declares squares array
 var mainBall;
 var mainBall2;
 
@@ -14,7 +15,8 @@ function setup() {
   background(5, 5, 5, 20);
 
   loadBalls(50);
-  loadShips(50);
+  loadShips(500);
+  loadSquares(500);
 
 }
 
@@ -23,6 +25,7 @@ function draw() {
   background(5,5,5, 20);
   runBalls();
   runShips();
+  runSquares();
 } //end draw
 
 function loadBalls(x){
@@ -56,3 +59,15 @@ function runShips(){
     ships[i].run();
   }
 }//end runShips
+
+function loadSquares(n){
+  for(var i = 0; i < n; i++){
+    squares[i]=new Square(random(width), random(height), random (-1,1), random(-1,1), i+6);
+  }
+}//end function loadSquares
+
+function runSquares(){
+  for(var i = 0; i < squares.length; i++){
+    squares[i].run();
+  }
+}//end function runSquares
