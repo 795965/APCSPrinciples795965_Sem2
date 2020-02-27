@@ -34,26 +34,37 @@ class Square {
   }
   update(){
     var distToMainBall;
+    var distToMainShip;
 
     if(this.id > 2){
      distToMainBall = this.loc.dist(mainBall.loc);
+
+
 
      if(distToMainBall < 800){
        //add attraction
        this.acc = p5.Vector.sub(mainBall2.loc, this.loc);
        this.acc.normalize();
-       this.acc.mult(0.5);
+       this.acc.mult(0.3);
 
      }
-     if(distToMainBall < 50){ // add repulsion
+     if(distToMainBall < 70){ // add repulsion
        this.acc = p5.Vector.sub(this.loc, mainBall.loc);
        this.acc.normalize();
-       this.acc.mult(0.5);
+       this.acc.mult(0.3);
      }
-
+   }
+     if(this.id > 3){
+      distToMainShip = this.loc.dist(mainShip.loc);
+        if(distToMainShip < 30){
+          //add attraction
+          this.acc = p5.Vector.sub(mainShip.loc, this.loc);
+          this.acc.normalize();
+          this.acc.mult(0.3);
+        }
 
     }
-    this.vel.limit(5);
+    this.vel.limit(3);
     this.vel.add(this.acc);
     this.loc.add(this.vel);
 

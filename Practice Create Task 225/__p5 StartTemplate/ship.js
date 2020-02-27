@@ -35,7 +35,7 @@ class Ship {
   }
   update(){
     var distToMainBall;
-
+    
     if(this.id > 2){
      distToMainBall = this.loc.dist(mainBall2.loc);
 
@@ -43,18 +43,19 @@ class Ship {
        //add attraction
        this.acc = p5.Vector.sub(mainBall.loc, this.loc);
        this.acc.normalize();
-       this.acc.mult(0.5);
+       this.acc.mult(0.3);
 
      }
-     if(distToMainBall < 50){ // add repulsion
+     if(distToMainBall < 80){ // add repulsion
        this.acc = p5.Vector.sub(this.loc, mainBall.loc);
        this.acc.normalize();
-       this.acc.mult(0.5);
+       this.acc.mult(0.3);
      }
+
 
 
     }
-    this.vel.limit(5);
+    this.vel.limit(3);
     this.vel.add(this.acc);
     this.loc.add(this.vel);
 

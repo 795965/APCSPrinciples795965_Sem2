@@ -15,8 +15,8 @@ function setup() {
   background(5, 5, 5, 20);
 
   loadBalls(50);
-  loadShips(500);
-  loadSquares(500);
+  loadShips(50);
+  loadSquares(50);
 
 }
 
@@ -26,6 +26,8 @@ function draw() {
   runBalls();
   runShips();
   runSquares();
+
+
 } //end draw
 
 function loadBalls(x){
@@ -42,9 +44,11 @@ function runBalls(){
   for(var i = 0; i < balls.length; i++){
     balls[i].run();
   }
+
 }//end runBalls
 
 function loadShips(y){
+  mainShip = new Ship(random(width/2), random(height/2), random(-0.4,.4), random(-.4,.4), -5)
   for(var i = 0; i < y; i++){
     if(y % 2 == 0){
     ships[i]=new Ship(random(width), random(height), random (-1,1), random(-1,1), i+2);
