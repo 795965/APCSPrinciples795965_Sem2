@@ -17,11 +17,12 @@ function setup() {
   cnv.position((windowWidth-width)/2, 30);
   background(5, 5, 5, 20);
 
-  loadBalls(50);
-  loadShips(50);
-  loadSquares(50);
-  loadMainBalls(2);
-  newButton();
+   loadBalls(50);
+   loadShips(50);
+   loadSquares(50);
+   loadMainBalls(2);
+   newButton();
+
 
 }
 
@@ -60,8 +61,8 @@ function startEcosystem(){
   textSize(45);
   fill(5);
   text ("Balls", 55, 525, 200, 200);
-  text ("Ships", 560, 525, 200, 200);
-  text ("Squares", 305, 530, 200, 200);
+  text ("Squares", 560, 525, 200, 200);
+  text ("Ships", 305, 530, 200, 200);
   text ("Ecosystem", 300, 250, 200, 200);
 
   checkButton(); // checks which difficulty is chosen
@@ -118,22 +119,8 @@ function runEcosystem(){
       runMainBalls();
     }
   }
-  runBalls(50);
-  runShips(50);
-  runSquares(50);
-  runMainBalls();
-}
+}//end runEcosystem
 
-function pickSnake(){ //check which difficulty button is isClicked
-  if (btnSea.isClicked()=== true){
-     type = 'sea';
-   }
- if (btnForest.isClicked()===true){
-    type = 'forest';
-  } if (btnGarden.isClicked()=== true){
-    type = 'garden';
-  }
-} //end pickSnake
 
 function loadMainBalls(){
   mainBall = new Ball(random(width/2), random(height/2), random (-.4,.4), random(-.4,.4), -1);
