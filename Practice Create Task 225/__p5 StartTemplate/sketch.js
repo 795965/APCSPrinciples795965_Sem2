@@ -8,7 +8,7 @@ var balls = []; //declares array
 var squares = []; //declares squares array
 var mainBall;
 var mainBall2;
-var btnShips, btnSquares, btnBalls, btnAll;
+var btnShips, btnSquares, btnBalls, btnAll, btnBTM;
 var gameState = 1;
 var difficulty;
 
@@ -45,6 +45,7 @@ function newButton(){ //declares location and color of all the buttons
   btnShips = new Button(300, 450, 220, 200, color (54, 132, 191));
   btnSquares = new Button(550, 450, 220, 200, color(173, 54, 191));
   btnAll = new Button(300, 200, 220, 200, color(191, 54, 111));
+  btnBTM = new Button(10, 10, 50, 50, color(200));
 }
 
 function startEcosystem(){
@@ -99,6 +100,9 @@ function checkButton(){ //check which button is isClicked
  if (btnAll.isClicked()=== true){
   difficulty = 'ecosystem';
 }
+if (btnBTM.isClicked()=== true){
+ difficulty = 'startOver';
+}
 }// end checkDifficulty
 
 function runEcosystem(){
@@ -119,6 +123,13 @@ function runEcosystem(){
       runMainBalls();
     }
   }
+
+  btnBTM.render();
+
+  if (btnBTM.isClicked()=== true){
+   difficulty = 'startOver';
+   clearEverything();
+ }
 }//end runEcosystem
 
 
@@ -172,3 +183,9 @@ function runSquares(){
     squares[i].run();
   }
 }//end function runSquares
+
+function clearEverything() { //clear gamestate and score for restarting level
+  gameState = 1;
+
+
+}
