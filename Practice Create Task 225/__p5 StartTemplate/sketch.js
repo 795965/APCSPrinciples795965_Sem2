@@ -105,18 +105,18 @@ if (btnBTM.isClicked()=== true){
 }
 }// end checkDifficulty
 
-function runEcosystem(){
-  if (difficulty === 'balls' || difficulty === 'ships'|| difficulty === 'squares' || difficulty === 'ecosystem'){
-    if (difficulty === 'balls'){
-      runBalls(50);
+function runEcosystem(){ //function to continue the running of each gamestate
+  if (difficulty === 'balls' || difficulty === 'ships'|| difficulty === 'squares' || difficulty === 'ecosystem'){ //checks to see which button is clicked
+    if (difficulty === 'balls'){ //runs the main balls and orbiters
+      runBalls(50); //makes 50 orbiter objects
       runMainBalls();
-    }else if (difficulty === 'ships'){
+    }else if (difficulty === 'ships'){ //runs main balls and ships
       runShips(50);
       runMainBalls();
-    }else if (difficulty === 'squares'){
+    }else if (difficulty === 'squares'){ //runs main balls and squares
       runSquares(50);
       runMainBalls();
-    }else if (difficulty === 'ecosystem'){
+    }else if (difficulty === 'ecosystem'){ //runs all of the possible objects
       runBalls(50);
       runShips(50);
       runSquares(50);
@@ -124,11 +124,11 @@ function runEcosystem(){
     }
   }
 
-  btnBTM.render();
+  btnBTM.render(); //renders the grey menu button
 
-  if (btnBTM.isClicked()=== true){
-   difficulty = 'startOver';
-   clearEverything();
+  if (btnBTM.isClicked()=== true){ //if the menu button is clicked, gor back to the menu
+   difficulty = 'startOver'; //sets a new variable for the button
+   clearEverything(); //sets the gameState back to the home screen
  }
 }//end runEcosystem
 
