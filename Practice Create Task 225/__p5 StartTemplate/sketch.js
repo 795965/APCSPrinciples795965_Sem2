@@ -6,8 +6,7 @@
 var ships = [];//declares ships array
 var balls = []; //declares array
 var squares = []; //declares squares array
-var mainBall;
-var mainBall2;
+var mainBall, mainBall2;
 var btnShips, btnSquares, btnBalls, btnAll, btnBTM;
 var gameState = 1;
 var difficulty;
@@ -55,7 +54,7 @@ function startEcosystem(){
   btnBalls.render();
   btnSquares.render();
 
-  textSize(100); //Snake game text
+  textSize(100); //Title  text
   fill(5);
   text("Ecosystem", 170, 150);
 
@@ -67,6 +66,7 @@ function startEcosystem(){
   text ("Ecosystem", 300, 250, 200, 200);
 
   checkButton(); // checks which difficulty is chosen
+  //I got help from Elena Campell on this code
   if (difficulty === 'balls' || difficulty === 'ships'|| difficulty === 'squares' || difficulty === 'ecosystem'){
     if (difficulty === 'balls'){
       runBalls(50);
@@ -88,6 +88,8 @@ function startEcosystem(){
 }
 
 function checkButton(){ //check which button is isClicked
+  //I got help from Elena Campell on this code
+
   if (btnBalls.isClicked()=== true){
      difficulty = 'balls';
    }
@@ -106,6 +108,7 @@ if (btnBTM.isClicked()=== true){
 }// end checkDifficulty
 
 function runEcosystem(){ //function to continue the running of each gamestate
+  //I got help from Elena Campell on this code
   if (difficulty === 'balls' || difficulty === 'ships'|| difficulty === 'squares' || difficulty === 'ecosystem'){ //checks to see which button is clicked
     if (difficulty === 'balls'){ //runs the main balls and orbiters
       runBalls(50); //makes 50 orbiter objects
