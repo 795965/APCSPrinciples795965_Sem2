@@ -15,11 +15,7 @@ class Ball{
  }
 
  getColor(){
-   if(this.id%2 === 0) {
 
-   }else{
-
-   }
  }
 
  run(){
@@ -45,59 +41,67 @@ class Ball{
      this.update();
   } //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-isColliding(){ //Is the ball touching the paddle
-  if(this.id%2 === 0 ){
+  isColliding(){
+    if(this.id<0){
+      if(this.loc.x > paddle.loc.x - paddle.w/2 && this.loc.x < paddle.loc.x + paddle.w/2 && this.loc.y > paddle.loc.y - paddle.h/2 && this.loc.y < paddle.loc.y + paddle.h/2){
+          return true
+      }
+    }else if (this.id%2 === 0) {
+      if(this.loc.x > paddle.loc.x - paddle.w/2 && this.loc.x < paddle.loc.x + paddle.w/2 && this.loc.y > paddle.loc.y - paddle.h/2 && this.loc.y < paddle.loc.y + paddle.h/2 && this.vel.y<0){
+          return true
+      }
+    }else {
+      if(this.loc.x > paddle.loc.x - paddle.w/2 && this.loc.x < paddle.loc.x + paddle.w/2 && this.loc.y > paddle.loc.y - paddle.h/2 && this.loc.y < paddle.loc.y + paddle.h/2 && this.vel.y>0){
+          return true
+      }
+    }
+   }//checks if the ball is colliding with the paddle
+// isColliding(){ //Is the ball touching the paddle
+//   if(this.id%2 === 0 ){ //for green balls
+//
+//   if (
+//     this.loc.x> paddle.loc.x &&
+//     this.loc.x < paddle.loc.x + paddle.w &&
+//     this.loc.y > paddle.loc.y &&
+//     this.loc.y < paddle.loc.y + paddle.h &&
+//     this.vel.y > 0){
+//       return true;
+//     } else {
+//       return false;
+//     }
+//   }
+//
+//   if(this.id%2!== 0){ //for red balls
+//     //bottom
+//   if (
+//     this.loc.x>paddle.loc.x &&
+//     this.loc.x < paddle.loc.x + paddle.w &&
+//     this.loc.y < paddle.loc.y &&
+//     this.loc.y > paddle.loc.y + paddle.h &&
+//     this.vel.y <0){
+//       return true;
+//     } else{
+//       return false;
+//     }
+//   }
+// } //end isColliding
 
-
-  if (this.loc.x> paddle.loc.x &&
-    this.loc.x < paddle.loc.x +paddle.w &&
-  this.loc.y > paddle.loc.y && this.loc.y < paddle.loc.y +paddle.h
-&& this.vel.y >0){
-    return true;
-  } else{
-    return false;
-  }  }
-
-  if(this.id%2!== 0 ){
-//bottom
-
-  if (this.loc.x>paddle.loc.x &&
-    this.loc.x < paddle.loc.x +paddle.w &&
-  this.loc.y < paddle.loc.y && this.loc.y > paddle.loc.y +paddle.h
- && this.vel.y <0){
-
-    return true;
-  } else{
-    return false;
-  }  }
-
-  if (this.loc.x> paddle.loc.x &&
-    this.loc.x < paddle.loc.x +paddle.w &&
-  this.loc.y > paddle.loc.y && this.loc.y < paddle.loc.y +paddle.h
-&& this.vel.y >0){
-    return true;
-  } else{
-    return false;
-  }  }
-}
 removeBall(){ //If the ball touches the top of the paddle, it is removed
-if (this.vel.y > 0 ){
-  for (var i = balls.length-1; i >= 0; i--){
-    if (balls[i].isColliding()){
-      balls.splice(i, 1);
-      return true;
+  for(var i = balls.length-1; i>=0; i--){
+      if(balls[i].isColliding()){
+        balls.splice(i, 1);
+      }
+    }
+    if(mainBall.isColliding()){
+      gameState = 1
     }
   }
-}
-}
+
 
   update(){//++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     var distToMainBall;
     if(this.id >= 0){//  if not mainBall
-
-
     }
-
     this.vel.add(this.acc);
     this.vel.limit(5);
     this.loc.add(this.vel);

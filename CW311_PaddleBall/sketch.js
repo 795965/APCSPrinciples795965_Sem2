@@ -1,9 +1,9 @@
+//Calvin Kapral and Ziggy Sheynin
+//CW 311
 
-
-//  eettlin
-//  306
 var paddle, mainBall;
 var balls  = [];
+var gameState = 0;
 // Setup runs once at the start of your program
 
 
@@ -21,11 +21,21 @@ function setup() {
 function draw() {
   // put drawing code here
     background(20,20,20, 20);//  back ground color
-    paddle.run();
-    mainBall.run();
-    for(var i =0; i < balls.length; i++){
-      balls[i].run();
+
+    if(gameState === 0){
+      paddle.run();
+      mainBall.run();
+      for(var i =0; i < balls.length; i++){
+        balls[i].run();
+      }
+    }else if (gameState === 1) {
+      balls.splice(0, balls.length);//removes all balls from the array, so there are none carried over into the next game
+      textAlign(CENTER);
+      textSize(100);
+      fill(255);
+      text("Game Over", 400, 400);
     }
+
 }
 
 function loadBalls(numBalls){
