@@ -242,7 +242,7 @@ numRed++;     }
   }
 }//end checkRed
 
-function clearEverything(){ //returns to origianl state
+function clearEverything(){ //returns to original state
   gameState =1;
   score = 0;
 }

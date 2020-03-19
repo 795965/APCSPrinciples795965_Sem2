@@ -5,7 +5,7 @@
 
 var balls = []; //declares array or balls
 var paddle; //declares paddle
-var difficulty; //declares variable to decide difficulty
+var mode, difficulty; //declares variable to decide difficulty
 var score =0; //initiates score at 0
 var gameState = 1; //starts the game at the main menu
 var win; //declares win variable
@@ -24,7 +24,7 @@ function draw() {
   if (gameState ===1){
     pickGame();
   }else if (gameState === 2){
-    startGame();
+    startGameClassic();
   }else if (gameState === 3){
     playGame(); //game screen
   }
@@ -47,24 +47,26 @@ function newButton(){
   btnBTMI = new Button (150, 450, 500, 75, color(255));
   btnReplay = new Button (50, 450, 250, 75, color (255));
   btnBTME = new Button (400, 450, 370, 75, color(255));
-  btnClassic = new Button (50, 700, 300, 100, color(20, 200, 150));
-  btnDeath = new Button (300, 700, 300, 100, color(200, 20, 150));
+  btnClassic = new Button (100, 690, 300, 100, color(20, 200, 150));
+  btnDeath = new Button (450, 690, 300, 100, color(200, 20, 150));
+
+
 } //puts all the buttons at their spots on the screen
 
 function pickGame(){
   textSize(75);
-  fill(255, 255, 240);
+  fill(255);
   textAlign(CENTER);
-  text("Paddle Game", 400, 300); // title text
+  text("Paddle Game", 400, 400); // title text
 
 
   btnClassic.render();
   btnDeath.render();
   btnInstruction.render();
-  fill(0,0,0);
+  fill(255);
   textSize(40);
-  text("Classic Mode", 150, 675);
-  text("Death Ball Mode", 400, 675);
+  text("Classic Mode", 250, 750);
+  text("Death Ball Mode", 600, 750);
 
   fill(179,179,179); //Instructions button
   fill(0,90,0);
@@ -72,21 +74,20 @@ function pickGame(){
   text("Instructions", 655, 145);
 
 
-  //   //checks if user presses easy, medium or hard button
-  checkDifficulty();
+  //   //checks if user presses classic of death mode button
+  checkMode();
   //moves to next splash screen
-  if(difficulty==='classic'||difficulty==='death'){
-    if(difficulty==='classic'){
-      startGameClassic()
-      gameState= 2;
+  if(mode==='classic'||mode==='death'){
+    if(mode==='classic'){
+      startGameClassic();
+      gameState = 2;
     }
-    if(difficulty==='death'){
+    if(mode==='death'){
       startGameDeath();
     }
 
 
-
-    if(difficulty==='instructions'){
+    if(mode==='instructions'){
       instructionsText();
       gameState=4;
     }
@@ -112,24 +113,18 @@ function startGameClassic(){//easy, medium, hard
   textSize(75);
   fill(255, 255, 240);
   textAlign(CENTER);
-  text("Paddle Game", 400, 300); // title text
+  text("Classic Mode", 400, 300); // title text
 
 
   btnEasy.render();
   btnMed.render();
   btnHard.render();
-  btnInstruction.render();
+
   fill(0,0,0);
   textSize(40);
   text("Easy", 150, 675);
   text("Medium", 400, 675);
   text("Hard", 650, 675);
-
-  fill(179,179,179); //Instructions button
-  fill(0,90,0);
-  textSize(40);
-  text("Instructions", 655, 145);
-
 
   //   //checks if user presses easy, medium or hard button
   checkDifficulty();
@@ -191,13 +186,33 @@ function startGameClassic(){//easy, medium, hard
           difficulty='hard'
         }
 
-        if(mouseIsPressed&&
-          mouseX>550&&
-          mouseX<700&&
-          mouseY>50&&
-          mouseY<210){
-            difficulty='instructions'
-          }
+}// end checkDifficulty
+
+function checkMode(){
+  //if mouse touches Classic
+  if(mouseIsPressed&&
+      mouseX>100&&
+      mouseX<250&&
+      mouseY>690&&
+      mouseY<700){
+        mode='Classic'
+      }
+      //if mouse touches Death
+  if(mouseIsPressed&&
+      mouseX>300&&
+      mouseX<500&&
+      mouseY>600&&
+      mouseY<700){
+        mode='Death'
+      }
+
+      if(mouseIsPressed&&
+        mouseX>550&&
+        mouseX<700&&
+        mouseY>50&&
+        mouseY<210){
+          mode='instructions'
+        }
 }// end checkDifficulty
 
 
