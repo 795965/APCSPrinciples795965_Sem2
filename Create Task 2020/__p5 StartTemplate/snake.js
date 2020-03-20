@@ -94,10 +94,8 @@ keyPressed(){ //function to move snake with arrow keys
   }//end keyPressed
 
   checkEdges(){ //keep snake inside screen, if not, game over
-    if(this.head.x< 0 || this.head.x > width|| this.head.y < 0 || this.head.y> height){
-        gameState = 4;
+    if(this.head.x< 0 || this.head.x > 600|| this.head.y < 0 || this.head.y> 600){
+        gameState = 5;
     }
   }//end checkEdges
-
-
 } //++++++++++++++++ End Snake

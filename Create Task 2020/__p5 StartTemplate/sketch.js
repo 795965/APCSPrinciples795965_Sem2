@@ -4,12 +4,12 @@
 //  The setup function function is called once when your program begins
 
 
-var score, header_height, snake, difficulty, type;
-var gameState = 5;
+var score, header_height, snake, difficulty, type, choice;
+var gameState = 1;
 var h = 10;
 var food = [];
 var body = [];
-var btnEasy, btnMed, btnHard, btnInstructions, btnBTM, btnReplay, btnSea, btnForest, btnGarden;
+var btnEasy, btnMed, btnHard, btnInstructions, btnBTME, btnBTMI, btnSea, btnDesert, btnGarden;
 
 function setup() {
   var cnv = createCanvas(600, 600);
@@ -22,34 +22,34 @@ function setup() {
 
 function draw(){ //decides what screen to go to
     if (gameState ===1){
-      startGame2(); //start screen
+      pickSnakeType(); //start screen
     }else if (gameState === 2){
-      playGame(); //game screen
-    }else if (gameState === 4){ //game over screen
+      instructionsText(); //game screen
+    }else if (gameState === 3){ //game over screen
+      startGame();
+    } else if(gameState === 4){ //screen to pick theme
+      playGame();
+    }else if(gameState === 5){ //insturctuctions screen
       endGame();
-  } else if(gameState === 5){ //screen to pick theme
-    pickSnakeType();
-  }else if(gameState === 6){ //insturctuctions screen
-    instructionsText();
-  }
-}
+    }
+} //end draw
 
 function newButton(){ //declares location and color of all the buttons
-  btnEasy = new Button(25, 400, 100, 100, color(78, 219, 18));
-  btnMed = new Button(300, 450, 200, 200, color (250,250,7));
-  btnHard = new Button(550, 450, 200, 200, color(250, 0, 0));
-  btnReplay = new Button(50, 450, 200, 200, color(100));
+  btnEasy = new Button(25, 350, 150, 100, color(78, 219, 18));
+  btnMed = new Button(225, 350, 150, 100, color (250,250,7));
+  btnHard = new Button(420, 350, 150, 100, color(250, 0, 0));
   btnSea = new Button(25, 250, 150, 100, color(0, 0, 255));
-  btnForest = new Button(225, 250, 150, 100, color (23, 200, 100));
+  btnDesert = new Button(225, 250, 150, 100, color (153, 102, 51));
   btnGarden = new Button(420, 250, 150, 100, color(15, 71, 38));
   btnInstructions = new Button (110, 440, 400, 100, color(5));
-  btnBTM = new Button(110, 540, 400, 100, color(255, 179, 179));
+  btnBTMI = new Button(110, 540, 400, 100, color(255, 179, 179));
+  btnBTME = new Button(250, 50, 150, 100, color(100));
 }
 
 function pickSnakeType(){ //allows you to pick the theme
   background(128, 128, 255); //background for theme choosing screen
   btnSea.render(); //draws buttons
-  btnForest.render();
+  btnDesert.render();
   btnGarden.render();
   btnInstructions.render();
 
@@ -66,28 +66,26 @@ function pickSnakeType(){ //allows you to pick the theme
 
   text ("Instructions", 200, 500);
 
-
    pickSnake(); // checks which difficulty is chosen
-    if (type === 'sea' || type === 'forest'|| type === 'garden'| type === 'instructions'){
+    if (type === 'sea' || type === 'desert'|| type === 'garden'|| type === 'instructions'){
       if (type === 'sea'){
-        startGame1();
-        gameState = 1;
-      }else if (type === 'forest'){
-        startGame1();
-        gameState = 1;
+        startGame();
+        gameState = 3;
+      }else if (type === 'desert'){
+        startGame();
+        gameState = 3;
       }else if (type === 'garden'){
-        startGame1();
-        gameState = 1;
+        startGame();
+        gameState = 3;
       }else if (type === 'instructions'){
         instructionsText();
-        gameState = 6;
-      }
+        gameState = 1;
     }
+
 }// end pickSnake
 
 
 function instructionsText(){//function for the instructions
-
   background(0, 163, 204)
   textSize(20);
   fill(5);
@@ -99,69 +97,32 @@ function instructionsText(){//function for the instructions
   text("Good Luck!", 250, 350);
 
   fill(50, 100, 150) //back to main menu button
-  btnBTM.render();
+  btnBTMI.render();
   fill(5);
   textSize(40);
   text("Back to Main Menu", 140, 600)
 
-  if(btnBTM.isClicked()=== true){
-    gameState = 5;
-    clearEverything();
-    difficulty = 'clearEverything';
+  if(btnBTMI.isClicked()=== true){
+    pickSnakeType();
   }
-
 }
-function startGame1(){ //main menu screen
+}//end function instructionsText
+
+function startGame(){
   textSize(80);
-  background(100, 200, 100);
-  fill(121, 76, 222);
-  textAlign(RIGHT);
-  textFont('Times New Roman')
-  text ("Snake Game", 600, 200); //title
-  textAlign(CENTER);
+  background(204, 153, 255);
+  fill(96, 0, 128);
+  text ("Snake Game", 100, 150); //title
 
   btnEasy.render(); //draws buttons
   btnMed.render();
   btnHard.render();
 
-  textSize (45); //text for buttons
-  fill(255);
-  text ("EASY", 55, 525, 200, 200);
-  text ("HARD", 560, 525, 200, 200);
-  text ("MEDIUM", 305, 530, 200, 200);
-
-    checkDifficulty(); // checks which difficulty is chosen
-    if (difficulty === 'easy' || difficulty === 'medium'|| difficulty === 'hard'){
-      if (difficulty === 'easy'){
-        loadObjects(7); //makes 7 food objects
-      }else if (difficulty === 'medium'){
-        loadObjects (5); //makes 5 food objects
-      }else if (difficulty === 'hard'){
-        loadObjects (2); //makes 2 food objects
-      }
-      gameState = 2; // play game
-    }
-}//end starteGame1
-
-function startGame2(){
-//change look of this
-  textSize(80);
-  background(100, 200, 100);
-  fill(121, 76, 222);
-  textAlign(RIGHT);
-  textFont('Times New Roman')
-  text ("Snake Game", 600, 200); //title
-  textAlign(CENTER);
-
-  btnEasy.render(); //draws buttons
-  btnMed.render();
-  btnHard.render();
-
-  textSize (45); //text for buttons
-  fill(255);
-  text ("EASY", 55, 525, 200, 200);
-  text ("HARD", 560, 525, 200, 200);
-  text ("MEDIUM", 305, 530, 200, 200);
+  textSize (35); //text for buttons
+  fill(5);
+  text ("Easy", 65, 378, 200, 200);
+  text ("Medium", 235, 378, 200, 200);
+  text ("Hard", 450, 378, 200, 200);
 
     checkDifficulty(); // checks which difficulty is chosen
     if (difficulty === 'easy' || difficulty === 'medium'|| difficulty === 'hard'){
@@ -172,61 +133,61 @@ function startGame2(){
       }else if (difficulty === 'hard'){
         loadObjects (2);
       }
-      gameState = 2; // play game
+      gameState = 4; // play game
     }
-}//end startGame2
+}//end startGame
 
 function playGame(){ //function to play the game
   frameRate(10); //makes snake go at normal speed
+
   if(type === 'garden'){ //makes background specific to theme
-    background(100, 200, 100);
-  } else if (type === 'forest'){
-    background(19, 97, 50);
+    background(15, 71, 38);
+
+  } else if (type === 'desert'){
+    background(153, 102, 51);
+
   }else if(type === 'sea'){
-    background(11, 75, 179);
+    background(0, 0, 255);
   }
   runObjects(); //calls runOjects function
   text ("Score: " + score, 100, 50); //score
-  checkTangled(); //if tangled, game Over
+  //checkTangled(); //if tangled, game Over
 } //end playGame
 
 function endGame(){ //created end screen
-  background(255,21,21); //red background
- fill(5);
- textSize(100);
- text("GAME OVER!", 400, 300); //game over text
- textSize(45);
+  background(128, 0, 0); //red background
+  fill(5);
+  textSize(80);
+  text("GAME OVER!", 50, 300); //game over text
 
- // btnBTME.render(); //puts buttons on screen
- // btnReplay.render();
- // fill(20)
- // text("Menu",560, 525, 200, 200);
- // text("Replay", 55, 525, 200, 200);
- // if (btnBTME.isClicked()){ // go back to main menu
- //   difficulty = 'startOver';
- //   clearEverything(); //resets score and where foods go
- // }
- // if (btnReplay.isClicked()=== true){ // replay level
- //   clearEverything();
- //   }
- }
+  btnBTME.render(); //puts buttons on screen
+  fill(20);
+  textSize(30);
+  text("Menu", 290, 80, 200, 200);
 
+  pickSnake();
+  if (type === 'menu1'){
+    if (type === 'menu1'){
+      clearEverything();
+    }
+  }
+ } //end function endGame
 
 function loadObjects(n){ //function to declare snake and food objects
   if(type === 'garden'){ //checks to see what type is chosen, then prints colors specific to that theme
-  snake = new Snake (Math.floor(Math.random()*26)*30,Math.floor(Math.random()*26)*30,30, color(227, 69, 7));
+  snake = new Snake (Math.floor(Math.random()*16)*30,Math.floor(Math.random()*16)*30,30, color(227, 69, 7));
     for (var j = 0; j < n; j++){
-      food[j] = new Food (Math.floor(Math.random()*26)*30,Math.floor(Math.random()*26)*30, color(70));
+      food[j] = new Food (Math.floor(Math.random()*16)*30,Math.floor(Math.random()*16)*30, color(70));
       }
-    }else if (type === 'forest'){
-      snake = new Snake (Math.floor(Math.random()*26)*30,Math.floor(Math.random()*26)*30,30, color(20));
+    }else if (type === 'desert'){
+      snake = new Snake (Math.floor(Math.random()*16)*30,Math.floor(Math.random()*16)*30,30, color(20));
         for (var j = 0; j < n; j++){
-          food[j] = new Food (Math.floor(Math.random()*26)*30,Math.floor(Math.random()*26)*30, color(202, 237, 0));
+          food[j] = new Food (Math.floor(Math.random()*16)*30,Math.floor(Math.random()*16)*30, color(202, 237, 0));
           }
     } else if(type === 'sea'){
-      snake = new Snake (Math.floor(Math.random()*26)*30,Math.floor(Math.random()*26)*30,30, color(162, 0, 255));
+      snake = new Snake (Math.floor(Math.random()*16)*30,Math.floor(Math.random()*16)*30,30, color(162, 0, 255));
         for (var j = 0; j < n; j++){
-          food[j] = new Food (Math.floor(Math.random()*26)*30,Math.floor(Math.random()*26)*30, color(0, 255, 229));
+          food[j] = new Food (Math.floor(Math.random()*16)*30,Math.floor(Math.random()*16)*30, color(0, 255, 229));
           }
     }
   }// end loadObjects
@@ -240,40 +201,41 @@ function runObjects(){
 
 function checkTangled(){ //checks to see if snake is tangled
   if(snake.tangled() === true){
-    gameState  = 4; //game over
+    gameState = 5; //game over
   }
 } //end checkTangled
 
 function checkDifficulty(){ //check which difficulty button is isClicked
-  if (btnEasy.isClicked()=== true){
+  if(btnEasy.isClicked()=== true){
      difficulty = 'easy';
-   }
- if (btnMed.isClicked()===true){
+   } else if (btnMed.isClicked()===true){
     difficulty = 'medium';
-  } if (btnHard.isClicked()=== true){
+  } else if (btnHard.isClicked()=== true){
     difficulty = 'hard';
   }
+
 }// end checkDifficulty
 
 function pickSnake(){ //check which difficulty button is isClicked
   if (btnSea.isClicked()=== true){
      type = 'sea';
-   }
- if (btnForest.isClicked()===true){
-    type = 'forest';
-
-  } if (btnGarden.isClicked()=== true){
+   }else if (btnDesert.isClicked()===true){
+    type = 'desert';
+  }else if (btnGarden.isClicked()=== true){
     type = 'garden';
-  }
-  if (btnInstructions.isClicked()=== true){
+  }else if (btnInstructions.isClicked()=== true){
     type = 'instructions';
+  }else if (btnBTMI.isClicked() === true){
+    type = 'menu';
+  }else if (btnBTME.isClicked() === true){
+    type = 'menu1';
   }
 } //end pickSnake
 
+
 function clearEverything() { //clear gamestate and score for restarting level
-  gameState = 5;
-  // startGame();
-  score = 0 ;
+  gameState = 1;
+  score = 0;
   food = [];
 
 } //end clearEverything

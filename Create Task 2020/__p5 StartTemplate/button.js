@@ -5,7 +5,6 @@
 
 
 class Button{ //button class
-
 constructor(x, y, w, h , clr){ //constructor- decides properties of buttons
     this.loc = createVector(x,y);
     this.w= w;
@@ -19,10 +18,9 @@ render(){ // creates button on screen when declared in sketch
   }
 
 isClicked(){ // to check if that button is pressed
-  if (mouseIsPressed&& mouseX > this.loc.x && mouseX< this.loc.x+this.w&&
-      mouseY>this.loc.y && mouseY<this.loc.y+this.h){
+    if (mouseIsPressed&& mouseX > this.loc.x && mouseX< this.loc.x+this.w&&
+          mouseY>this.loc.y && mouseY<this.loc.y+this.h){
           return true;
-  }
-}
-
+        }
+      }
 }///end button class
