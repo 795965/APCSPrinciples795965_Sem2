@@ -18,7 +18,7 @@ class Snake{ //class snake
     this.render();
   } //end run
 
-  update(){ //updates location of snake
+update(){ //updates location of snake
     this.keyPressed(); //goes to where key is pressed
     this.checkEdges();
      for(var i = 0; i< food.length; i++){ //traverses whole food array
